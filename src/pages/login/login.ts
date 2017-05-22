@@ -28,6 +28,7 @@ export class LoginPage {
   }
 
   ionViewWillLoad() {
+    console.log(this.auth.user);
     if(this.auth.user) this.navCtrl.push(HomePage);
   }
 
