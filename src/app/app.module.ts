@@ -9,13 +9,21 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from "../pages/login/login";
+import { ProfilePage } from '../pages/profile/profile';
+import { ReportsPage } from '../pages/reports/reports';
+import { ReportsAddPage } from '../pages/reports-add/reports-add';
+
 import { AuthProvider } from '../providers/auth/auth';
+import { BackProvider } from '../providers/back/back';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    ProfilePage,
+    ReportsPage,
+    ReportsAddPage
   ],
   imports: [
     BrowserModule,
@@ -27,13 +35,17 @@ import { AuthProvider } from '../providers/auth/auth';
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    ProfilePage,
+    ReportsPage,
+    ReportsAddPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
+    BackProvider
   ]
 })
 export class AppModule {}

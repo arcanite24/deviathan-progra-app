@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import {  AuthProvider} from "../../providers/auth/auth";
+import { Storage } from '@ionic/storage';
+import { AuthProvider } from "../../providers/auth/auth";
 import { HomePage } from "../home/home";
 
 @IonicPage()
@@ -17,7 +18,8 @@ export class LoginPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public toast: ToastController,
-    public auth: AuthProvider
+    public auth: AuthProvider,
+    public storage: Storage
   ) 
   {
     this.loader = false;
@@ -25,13 +27,13 @@ export class LoginPage {
       username: '',
       password: ''
     };
-  }
-
-  ionViewWillLoad() {
-    if(this.auth.user) this.navCtrl.push(HomePage);
+    this.storage.get('user').then(user => {
+      if(user) this.navCtrl.setRoot(HomePage);
+    });
   }
 
   login(username: string, password: string) {
+    console.log(this.auth.user);
     this.loader = true;
     this.auth.login(username, password).subscribe(
       data => {
@@ -39,13 +41,14 @@ export class LoginPage {
           this.toast.create({message: data.err, duration: 4000}).present();
           this.loader = false;
         } else {
-          this.auth.saveUser(data.user);
-          this.toast.create({message: 'Sesión iniciada correctamente.', duration: 4000}).present();
-          this.loader = false;
+          this.auth.saveUser(data.user, dataSave => {
+            if(dataSave.err) return this.toast.create({message: 'Error, no se pudo guardar la sesión.', duration: 2000});
+            this.toast.create({message: 'Sesión iniciada correctamente.', duration: 4000}).present();
+            this.navCtrl.setRoot(HomePage);
+            this.loader = false;
+          });
+          
         }
-        
-        console.log(data);
-        
       },
       err => {
         this.loader = false;

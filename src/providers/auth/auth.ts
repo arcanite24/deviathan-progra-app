@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 export class AuthProvider {
 
   public api: string;
-  public user: string;
+  public user: any;
 
   constructor(public http: Http, public storage: Storage) {
     this.api = 'http://localhost:1337/';
@@ -22,9 +22,13 @@ export class AuthProvider {
     return this.http.post(this.api + 'user/login', {username: username, password: password}).map(res => res.json());
   }
 
-  saveUser(user: any) {
+  logout(cb: Function) {
+    this.storage.remove('user').then(() => cb());
+  }
+
+  saveUser(user: any, cb: Function) {
     this.user = user;
-    return this.storage.set('user', JSON.stringify(user));
+    this.storage.set('user', JSON.stringify(user)).then(() => cb(user)).catch(err => cb({err: err}));
   }
 
 }
