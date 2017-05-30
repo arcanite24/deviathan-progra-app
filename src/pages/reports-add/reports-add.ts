@@ -4,7 +4,6 @@ import { IonicPage, NavController, NavParams, LoadingController, ToastController
 
 import { BackProvider } from '../../providers/back/back';
 
-@IonicPage()
 @Component({
   selector: 'page-reports-add',
   templateUrl: 'reports-add.html',
