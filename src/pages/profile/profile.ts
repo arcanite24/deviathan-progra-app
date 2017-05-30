@@ -22,6 +22,7 @@ export class ProfilePage {
   }
 
   getStyledRoles(roles: Array<any>) {
+    if(!roles) return 'Cargando...';
     let tempRoles = roles.map(role => {
       if(role == 'ROLE_ADMIN') return 'Administrador';
       if(role == 'ROLE_ALUMNO') return 'Alumno';

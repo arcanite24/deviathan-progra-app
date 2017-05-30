@@ -1,3 +1,4 @@
+import { Storage } from '@ionic/storage';
 import { Component, ViewChild } from '@angular/core';
 import { Platform, NavController, MenuController, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -18,10 +19,12 @@ export class MyApp {
 
   public user: any;
   public homePage: any = HomePage;
-  public profilePage: any = ProfilePage;
-  public reportsPage: any = ReportsPage;
+  public profilePage: any = "ProfilePage";
+  public reportsPage: any = "ReportsPage";
+  public tareasPage: any = "TareasPage";
+  public notasPage: any = "NotasPage";
 
-  rootPage:any = LoginPage;
+  rootPage:any = 'LoginPage';
 
   constructor(
     platform: Platform,
@@ -29,10 +32,13 @@ export class MyApp {
     splashScreen: SplashScreen,
     public auth: AuthProvider,
     public menu: MenuController,
-    public modal: ModalController
+    public modal: ModalController,
+    public storage: Storage
   ) {
     this.user = {};
-    setTimeout(() => this.user = this.auth.user, 300);
+    this.storage.get('user').then(user => {
+      this.user = JSON.parse(user);
+    });
     platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();

@@ -12,10 +12,25 @@
 <ion-content class="beee">
   <ion-card>
     <ion-card-header class="c54">
-      <ion-icon name="calendar"></ion-icon>&nbsp;<strong>Horario de hoy</strong>
+      <ion-icon name="calendar"></ion-icon>&nbsp;Horario de hoy
     </ion-card-header>
     <ion-list>
-      <ion-item><strong>Nombre clase</strong> |  18:00-19:00</ion-item>
+      <ion-item *ngFor="let c of allClases">
+        <h2>{{c.materia.name}}</h2>
+        <h3>{{c.inicio}} - {{c.fin}}</h3>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+  <ion-card>
+    <ion-card-header class="c54">
+      <ion-icon name="information-circle"></ion-icon>&nbsp;Anuncios
+    </ion-card-header>
+    <ion-list>
+      <ion-item *ngFor="let a of allAnuncios">
+        <h2>{{a.title}}</h2>
+        <h3>{{a.text}}</h3>
+        <p>{{a.createdAt | date:'medium'}}</p>
+      </ion-item>
     </ion-list>
   </ion-card>
 </ion-content>

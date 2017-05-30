@@ -1,3 +1,4 @@
+import { AuthProvider } from './../../providers/auth/auth';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController, ViewController } from 'ionic-angular';
 
@@ -19,7 +20,8 @@ export class ReportsAddPage {
     public back: BackProvider,
     public load: LoadingController,
     public toast: ToastController,
-    public view: ViewController
+    public view: ViewController,
+    public auth: AuthProvider
   ) {
     this.allItems = [];
     this.addReporteData = {};
@@ -44,8 +46,11 @@ export class ReportsAddPage {
   addReporte() {
     let loader = this.load.create({content: 'Cargando inventario...'});
     loader.present();
+    this.addReporteData.user = this.auth.user.id;
     this.back.addReporte(this.addReporteData).subscribe(
       data => {
+        console.log(data);
+        
         loader.dismiss();
         this.toast.create({message: 'Reporte agregado correctamente...', duration: 3000});
         this.view.dismiss(data);
@@ -56,6 +61,10 @@ export class ReportsAddPage {
         this.view.dismiss();
       }
     );
+  }
+
+  close() {
+    this.view.dismiss();
   }
 
 }
