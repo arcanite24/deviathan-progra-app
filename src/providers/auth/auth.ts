@@ -10,7 +10,7 @@ export class AuthProvider {
   public user: any;
 
   constructor(public http: Http, public storage: Storage) {
-    this.api = 'http://localhost:1337/';
+    this.api = 'http://test.epsidev.com/';
     this.storage.get('user').then(user => {
       if(!user) return this.user = null;
       this.user = JSON.parse(user);
