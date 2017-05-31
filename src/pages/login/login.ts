@@ -28,12 +28,16 @@ export class LoginPage {
       password: ''
     };
     this.storage.get('user').then(user => {
-      if(user) this.navCtrl.setRoot(HomePage);
+      if(user) {
+        console.log(JSON.parse(user));
+        
+        this.auth.setUser(JSON.parse(user));
+        this.navCtrl.setRoot(HomePage);
+      }
     });
   }
 
   login(username: string, password: string) {
-    console.log(this.auth.user);
     this.loader = true;
     this.auth.login(username, password).subscribe(
       data => {

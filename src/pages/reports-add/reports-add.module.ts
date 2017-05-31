@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+/*import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ReportsAddPage } from './reports-add';
 
@@ -13,4 +13,4 @@ import { ReportsAddPage } from './reports-add';
     ReportsAddPage
   ]
 })
-export class ReportsAddPageModule {}
+export class ReportsAddPageModule {}*/

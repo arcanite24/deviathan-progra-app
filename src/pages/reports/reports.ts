@@ -29,6 +29,8 @@ export class ReportsPage {
     loader.present();
     this.back.getMyReportes().subscribe(
       data => {
+        console.log(data);
+        
         this.allReports = data;
         loader.dismiss();
       },
@@ -45,8 +47,7 @@ export class ReportsPage {
     modalNewReport.present();
     modalNewReport.onDidDismiss(data => {
       if(!data) return;
-      this.allReports.push(data);
-      this.toast.create({message: 'Reporte enviado correctamente.', duration: 4000}).present();
+      this.ionViewWillLoad();
     });
   }
 

@@ -11,10 +11,7 @@ export class AuthProvider {
 
   constructor(public http: Http, public storage: Storage) {
     this.api = 'http://test.epsidev.com/';
-    this.storage.get('user').then(user => {
-      if(!user) return this.user = null;
-      this.user = JSON.parse(user);
-    })
+    this.user = {grupo: {}};
   }
 
   // Auth
@@ -26,9 +23,19 @@ export class AuthProvider {
     this.storage.remove('user').then(() => cb());
   }
 
+  setUser(user: any) {
+    this.user = user;
+  }
+
   saveUser(user: any, cb: Function) {
     this.user = user;
     this.storage.set('user', JSON.stringify(user)).then(() => cb(user)).catch(err => cb({err: err}));
+  }
+
+  getUser(cb: Function) {
+    this.storage.get('user').then(user => {
+      return cb(JSON.parse(user));
+    });
   }
 
 }
